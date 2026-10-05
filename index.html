@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ruapehu Cleaning Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0A1628;
+      --navy-mid: #112240;
+      --teal: #00C9A7;
+      --teal-dark: #00A889;
+      --teal-light: #E0FFF9;
+      --gold: #F5C842;
+      --white: #FFFFFF;
+      --silver: #F0F4F8;
+      --gray: #8A99B0;
+      --text: #1E2D45;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --shadow-sm: 0 2px 12px rgba(10,22,40,0.08);
+      --shadow-md: 0 8px 32px rgba(10,22,40,0.14);
+      --shadow-lg: 0 20px 60px rgba(10,22,40,0.2);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--silver); }
+    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 99px; }
+
+    /* ── PAGE SYSTEM ── */
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; animation: fadeInPage 0.5s ease; }
+    @keyframes fadeInPage { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 76px;
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,201,167,0.15);
+      transition: box-shadow var(--transition);
+    }
+    nav.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.3); }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; cursor: pointer;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: white;
+      box-shadow: 0 0 20px rgba(0,201,167,0.4);
+    }
+    .nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .nav-logo-text span:first-child {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 15px; color: var(--white); letter-spacing: 0.5px;
+    }
+    .nav-logo-text span:last-child {
+      font-size: 9px; color: var(--teal); letter-spacing: 3px;
+      text-transform: uppercase; font-weight: 500;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 99px;
+      transition: all var(--transition);
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--white);
+      background: rgba(0,201,167,0.15);
+    }
+    .nav-links a.active { color: var(--teal); }
+    .nav-cta {
+      background: var(--teal) !important;
+      color: var(--navy) !important;
+      font-weight: 700 !important;
+      padding: 9px 22px !important;
+    }
+    .nav-cta:hover { background: var(--teal-dark) !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg-image {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80') center/cover no-repeat;
+      opacity: 0.08;
+    }
+
+    .hero-diagonal {
+      position: absolute;
+      bottom: -2px; right: -1px;
+      width: 55%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 40%, rgba(0,201,167,0.06) 100%);
+      clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 20%; right: 15%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,201,167,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Sparkle particles */
+    .sparkles { position: absolute; inset: 0; pointer-events: none; }
+    .sparkle {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: sparkleFloat linear infinite;
+      opacity: 0;
+    }
+    @keyframes sparkleFloat {
+      0% { opacity: 0; transform: translateY(0) scale(0); }
+      20% { opacity: 1; transform: translateY(-20px) scale(1); }
+      80% { opacity: 0.5; }
+      100% { opacity: 0; transform: translateY(-120px) scale(0.5); }
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto; padding: 0 5%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center; padding-top: 76px;
+    }
+
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,201,167,0.12);
+      border: 1px solid rgba(0,201,167,0.3);
+      color: var(--teal);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 7px 16px; border-radius: 99px;
+      margin-bottom: 28px;
+    }
+    .hero-label i { font-size: 10px; }
+
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 26px;
+      letter-spacing: -1px;
+    }
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--teal);
+      position: relative;
+    }
+    .hero-h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), transparent);
+      border-radius: 2px;
+    }
+
+    .hero-desc {
+      color: rgba(255,255,255,0.65);
+      font-size: 17px; line-height: 1.75;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 32px;
+      border-radius: 99px;
+      font-family: var(--font-body);
+      font-size: 15px; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all var(--transition);
+      letter-spacing: 0.2px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      color: var(--navy);
+      box-shadow: 0 8px 24px rgba(0,201,167,0.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,201,167,0.45); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.25);
+    }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); background: rgba(0,201,167,0.05); }
+
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 700;
+      color: var(--white);
+    }
+    .hero-stat-num span { color: var(--teal); }
+    .hero-stat-label {
+      font-size: 12px; color: rgba(255,255,255,0.5);
+      font-weight: 500; letter-spacing: 0.5px;
+    }
+
+    /* Hero image card */
+    .hero-visual { position: relative; }
+    .hero-card {
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 4/5;
+    }
+    .hero-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 8s ease;
+    }
+    .hero-card:hover img { transform: scale(1.04); }
+    .hero-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,22,40,0.7) 0%, transparent 50%);
+    }
+    .hero-card-badge {
+      position: absolute;
+      bottom: -20px; left: -20px;
+      background: var(--white);
+      border-radius: 20px;
+      padding: 20px 24px;
+      box-shadow: var(--shadow-md);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .badge-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: white;
+    }
+    .badge-text { font-size: 12px; color: var(--gray); }
+    .badge-text strong { display: block; font-size: 15px; color: var(--text); font-weight: 700; }
+
+    .hero-card-rating {
+      position: absolute;
+      top: 24px; right: -16px;
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 14px 18px;
+      text-align: center;
+      border: 1px solid rgba(0,201,167,0.2);
+    }
+    .rating-stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+    .rating-num { font-size: 22px; font-weight: 700; color: var(--white); font-family: var(--font-display); }
+    .rating-label { font-size: 10px; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; }
+
+    /* ── SECTION COMMONS ── */
+    .section { padding: 100px 5%; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 11px; font-weight: 700;
+      color: var(--teal); letter-spacing: 3px;
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      font-weight: 700; color: var(--text);
+      line-height: 1.2; margin-bottom: 18px;
+    }
+    .section-subtitle {
+      font-size: 16px; color: var(--gray);
+      max-width: 560px; line-height: 1.7;
+    }
+    .section-header { margin-bottom: 60px; }
+    .section-header.centered { text-align: center; }
+    .section-header.centered .section-subtitle { margin: 0 auto; }
+
+    /* ── WHY US ── */
+    .why-section { background: var(--silver); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+
+    .why-image-wrap { position: relative; }
+    .why-image {
+      border-radius: 24px; overflow: hidden;
+      aspect-ratio: 1;
+      box-shadow: var(--shadow-md);
+    }
+    .why-image img { width: 100%; height: 100%; object-fit: cover; }
+    .why-float-card {
+      position: absolute;
+      bottom: 30px; right: -24px;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 16px;
+      padding: 20px 24px;
+      width: 200px;
+      border-top: 3px solid var(--teal);
+    }
+    .why-float-card p { font-size: 11px; color: var(--gray); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+    .why-float-card strong { font-size: 18px; color: var(--teal); font-family: var(--font-display); }
+
+    .why-features { display: flex; flex-direction: column; gap: 28px; margin-top: 32px; }
+    .why-feature {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px; background: var(--white); border-radius: var(--radius);
+      border-left: 3px solid transparent;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    .why-feature:hover { border-left-color: var(--teal); transform: translateX(6px); }
+    .why-feature-icon {
+      width: 50px; height: 50px; min-width: 50px;
+      background: var(--teal-light);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: var(--teal);
+    }
+    .why-feature-title { font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    .why-feature-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ── SERVICES PREVIEW ── */
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .service-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      cursor: pointer;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .service-card-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .service-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .service-card:hover .service-card-img img { transform: scale(1.06); }
+    .service-card-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,22,40,0.5), transparent);
+    }
+    .service-card-tag {
+      position: absolute; top: 16px; left: 16px;
+      background: var(--teal); color: var(--navy);
+      font-size: 11px; font-weight: 700;
+      padding: 5px 12px; border-radius: 99px;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .service-card-body { padding: 24px; }
+    .service-card-body h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+    .service-card-body p { font-size: 13px; color: var(--gray); line-height: 1.65; margin-bottom: 18px; }
+    .service-card-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 700; color: var(--teal);
+      transition: gap var(--transition);
+    }
+    .service-card:hover .service-card-link { gap: 10px; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-section { background: var(--navy); }
+    .testimonials-section .section-title,
+    .testimonials-section .section-eyebrow { color: var(--white); }
+    .testimonials-section .section-eyebrow { color: var(--teal); }
+    .testimonials-section .section-subtitle { color: rgba(255,255,255,0.55); }
+
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .testimonial-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 32px;
+      transition: all var(--transition);
+    }
+    .testimonial-card:hover { background: rgba(0,201,167,0.07); border-color: rgba(0,201,167,0.2); }
+    .t-stars { color: var(--gold); font-size: 14px; margin-bottom: 18px; letter-spacing: 2px; }
+    .t-quote { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.75; margin-bottom: 24px; font-style: italic; }
+    .t-author { display: flex; align-items: center; gap: 14px; }
+    .t-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 2px solid var(--teal); overflow: hidden; flex-shrink: 0;
+    }
+    .t-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .t-name { font-size: 14px; font-weight: 700; color: var(--white); }
+    .t-role { font-size: 11px; color: var(--gray); }
+
+    /* ── CTA BANNER ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, #00E5C2 100%);
+      padding: 80px 5%;
+      position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .cta-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+      position: relative; z-index: 1; flex-wrap: wrap;
+    }
+    .cta-text h2 { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .cta-text p { color: rgba(10,22,40,0.7); font-size: 16px; }
+    .btn-dark { background: var(--navy); color: var(--white); }
+    .btn-dark:hover { background: #0d1e36; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(10,22,40,0.3); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060F1C;
+      padding: 70px 5% 30px;
+      color: rgba(255,255,255,0.55);
+    }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 50px; }
+    .footer-brand p { font-size: 14px; line-height: 1.7; margin: 18px 0 24px; max-width: 280px; }
+    .footer-social { display: flex; gap: 12px; }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px; transition: all var(--transition);
+      text-decoration: none;
+    }
+    .social-btn:hover { background: var(--teal); color: var(--navy); transform: translateY(-2px); }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--white); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      font-size: 14px; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color var(--transition);
+      cursor: pointer;
+    }
+    .footer-col ul li a:hover { color: var(--teal); }
+    .footer-contact-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; }
+    .footer-contact-item i { color: var(--teal); margin-top: 3px; font-size: 13px; }
+    .footer-contact-item span { font-size: 13px; }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+      font-size: 13px;
+    }
+    .footer-bottom span { color: var(--teal); }
+
+    /* ══════════════════════════════
+       SERVICES PAGE
+    ══════════════════════════════ */
+    .services-hero {
+      background: var(--navy);
+      padding: 160px 5% 90px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .services-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=80') center/cover;
+      opacity: 0.07;
+    }
+    .page-hero-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+    .page-hero-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 900; color: var(--white); margin-bottom: 20px; line-height: 1.1; }
+    .page-hero-sub { font-size: 17px; color: rgba(255,255,255,0.6); max-width: 560px; margin: 0 auto; }
+
+    .services-full-section { padding: 80px 5%; }
+    .services-tabs {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      margin-bottom: 48px; justify-content: center;
+    }
+    .tab-btn {
+      padding: 10px 24px; border-radius: 99px;
+      border: 2px solid rgba(0,0,0,0.1);
+      background: transparent; cursor: pointer;
+      font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: var(--gray); transition: all var(--transition);
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--teal); color: var(--navy); border-color: var(--teal);
+    }
+
+    .services-full-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .service-full-card {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08);
+      transition: all var(--transition);
+      background: var(--white);
+    }
+    .service-full-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .sfc-img { aspect-ratio: 16/10; overflow: hidden; }
+    .sfc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .service-full-card:hover .sfc-img img { transform: scale(1.05); }
+    .sfc-body { padding: 28px; }
+    .sfc-icon {
+      width: 54px; height: 54px;
+      background: var(--teal-light);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: var(--teal);
+      margin-bottom: 18px;
+    }
+    .sfc-body h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+    .sfc-body p { font-size: 13px; color: var(--gray); line-height: 1.7; margin-bottom: 20px; }
+    .sfc-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .sfc-features li { font-size: 13px; color: var(--text); display: flex; gap: 8px; align-items: center; }
+    .sfc-features li::before { content: '✓'; color: var(--teal); font-weight: 800; font-size: 12px; }
+    .sfc-price {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.07);
+    }
+    .price-tag { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text); }
+    .price-tag small { font-size: 13px; font-family: var(--font-body); color: var(--gray); font-weight: 400; }
+    .btn-sm { padding: 10px 22px; font-size: 13px; border-radius: 99px; font-family: var(--font-body); font-weight: 700; cursor: pointer; border: none; transition: all var(--transition); }
+    .btn-teal { background: var(--teal); color: var(--navy); }
+    .btn-teal:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+    /* Process section */
+    .process-section { background: var(--silver); padding: 90px 5%; }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 60px; position: relative; }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 38px; left: 12%; right: 12%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--teal), rgba(0,201,167,0.2));
+    }
+    .process-step { text-align: center; padding: 20px 16px; }
+    .step-num {
+      width: 76px; height: 76px; border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 900; color: var(--teal);
+      margin: 0 auto 22px;
+      box-shadow: 0 0 0 8px rgba(0,201,167,0.08);
+      position: relative; z-index: 1;
+      background: white;
+    }
+    .process-step h4 { font-weight: 700; color: var(--text); margin-bottom: 8px; font-size: 15px; }
+    .process-step p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ══════════════════════════════
+       CONTACT PAGE
+    ══════════════════════════════ */
+    .contact-hero { background: var(--navy); padding: 160px 5% 90px; text-align: center; position: relative; overflow: hidden; }
+    .contact-hero::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1527515545081-5db817172677?w=1600&q=80') center/cover; opacity: 0.07; }
+
+    .contact-section { padding: 90px 5%; }
+    .contact-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 5fr 7fr; gap: 70px; align-items: start; }
+
+    .contact-info-card {
+      background: var(--navy); border-radius: 24px; padding: 48px;
+      color: white;
+    }
+    .contact-info-card h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin-bottom: 10px; }
+    .contact-info-card p { color: rgba(255,255,255,0.6); font-size: 14px; line-height: 1.7; margin-bottom: 36px; }
+    .contact-detail {
+      display: flex; gap: 18px; align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .cd-icon {
+      width: 46px; height: 46px; min-width: 46px;
+      background: rgba(0,201,167,0.12);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--teal); font-size: 16px;
+    }
+    .cd-label { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .cd-value { font-size: 15px; color: var(--white); font-weight: 600; }
+    .contact-info-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 32px 0; }
+    .contact-hours h4 { font-size: 13px; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+    .hours-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; }
+    .hours-row span:first-child { color: rgba(255,255,255,0.6); }
+    .hours-row span:last-child { color: var(--white); font-weight: 600; }
+
+    .contact-form-wrap {
+      background: var(--white); border-radius: 24px;
+      padding: 48px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .contact-form-wrap h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    .contact-form-wrap p { color: var(--gray); font-size: 14px; margin-bottom: 32px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .form-group { margin-bottom: 22px; }
+    .form-group label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--text); margin-bottom: 8px; letter-spacing: 0.2px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 13px 16px;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body); font-size: 14px; color: var(--text);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 4px rgba(0,201,167,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238A99B0' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+
+    .form-check { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
+    .form-check input[type="checkbox"] { margin-top: 3px; accent-color: var(--teal); width: 16px; height: 16px; cursor: pointer; }
+    .form-check label { font-size: 13px; color: var(--gray); cursor: pointer; }
+    .form-check label a { color: var(--teal); text-decoration: none; }
+
+    .form-success {
+      display: none;
+      text-align: center; padding: 40px;
+    }
+    .form-success.show { display: block; animation: fadeInPage 0.5s ease; }
+    .success-icon {
+      width: 80px; height: 80px;
+      background: var(--teal-light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; color: var(--teal);
+      margin: 0 auto 20px;
+    }
+    .form-success h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; }
+    .form-success p { color: var(--gray); font-size: 14px; }
+
+    /* Map placeholder */
+    .map-section { background: var(--silver); padding: 80px 5%; }
+    .map-inner { max-width: 1200px; margin: 0 auto; }
+    .map-placeholder {
+      width: 100%; height: 380px; border-radius: 24px;
+      overflow: hidden; position: relative;
+      box-shadow: var(--shadow-md);
+    }
+    .map-placeholder img { width: 100%; height: 100%; object-fit: cover; }
+    .map-overlay {
+      position: absolute; inset: 0;
+      background: rgba(10,22,40,0.35);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .map-pin {
+      background: var(--white); border-radius: 16px; padding: 16px 24px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: var(--shadow-lg);
+    }
+    .map-pin i { color: var(--teal); font-size: 22px; }
+    .map-pin strong { display: block; font-size: 15px; }
+    .map-pin span { font-size: 13px; color: var(--gray); }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-visual { display: none; }
+      .hero-desc { max-width: 100%; margin: 0 auto 40px; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-image-wrap { display: none; }
+      .services-grid, .services-full-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .services-grid, .services-full-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .hero-stats { flex-direction: column; gap: 16px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .cta-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav id="mainNav">
+  <a class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon"><i class="fas fa-sparkles"></i></div>
+    <div class="nav-logo-text">
+      <span>Ruapehu Cleaning</span>
+      <span>Solutions</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a class="active" id="nav-home" onclick="showPage('home')">Home</a>
+    <a id="nav-services" onclick="showPage('services')">Services</a>
+    <a id="nav-contact" onclick="showPage('contact')">Contact</a>
+    <a class="nav-cta" onclick="showPage('contact')">Get a Quote</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HOME PAGE ═══════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-image"></div>
+    <div class="hero-diagonal"></div>
+    <div class="hero-glow"></div>
+    <div class="sparkles" id="sparkleContainer"></div>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-label"><i class="fas fa-star"></i> New Zealand's #1 Cleaning Service</div>
+        <h1 class="hero-h1">Where Every Surface <em>Shines</em> With Purpose</h1>
+        <p class="hero-desc">Professional, eco-friendly cleaning solutions for homes and businesses across the Ruapehu region. We don't just clean — we transform your space into something extraordinary.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="showPage('contact')">
+            <i class="fas fa-calendar-check"></i> Book a Clean
+          </button>
+          <button class="btn btn-outline" onclick="showPage('services')">
+            <i class="fas fa-play-circle"></i> Our Services
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">2,400<span>+</span></div>
+            <div class="hero-stat-label">Happy Clients</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">12<span>yr</span></div>
+            <div class="hero-stat-label">Experience</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">100<span>%</span></div>
+            <div class="hero-stat-label">Eco Products</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="Professional Cleaning"/>
+          <div class="hero-card-overlay"></div>
+          <div class="hero-card-badge">
+            <div class="badge-icon"><i class="fas fa-leaf"></i></div>
+            <div>
+              <div class="badge-text"><strong>100% Eco-Safe</strong></div>
+              <div class="badge-text">Certified Green Products</div>
+            </div>
+          </div>
+          <div class="hero-card-rating">
+            <div class="rating-stars">★★★★★</div>
+            <div class="rating-num">4.9</div>
+            <div class="rating-label">Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section why-section">
+    <div class="section-inner">
+      <div class="why-grid">
+        <div class="why-image-wrap reveal">
+          <div class="why-image">
+            <img src="https://images.unsplash.com/photo-1596377989562-7c5e630ab30a?w=800&q=80" alt="Cleaning Team"/>
+          </div>
+          <div class="why-float-card">
+            <p>Satisfaction Rate</p>
+            <strong>99.7%</strong>
+          </div>
+        </div>
+        <div>
+          <div class="section-eyebrow reveal">Why Choose Us</div>
+          <h2 class="section-title reveal reveal-delay-1">Built on Trust, Delivered With <span style="color:var(--teal)">Precision</span></h2>
+          <p class="section-subtitle reveal reveal-delay-2">Every member of our team is fully vetted, trained to the highest industry standard, and genuinely passionate about delivering results that go beyond the surface.</p>
+          <div class="why-features">
+            <div class="why-feature reveal reveal-delay-1">
+              <div class="why-feature-icon"><i class="fas fa-shield-halved"></i></div>
+              <div>
+                <div class="why-feature-title">Fully Insured & Certified</div>
+                <div class="why-feature-desc">Complete peace of mind with $5M liability coverage and NZQA-certified staff on every job.</div>
+              </div>
+            </div>
+            <div class="why-feature reveal reveal-delay-2">
+              <div class="why-feature-icon"><i class="fas fa-leaf"></i></div>
+              <div>
+                <div class="why-feature-title">Eco-Friendly Products Only</div>
+                <div class="why-feature-desc">We use biodegradable, non-toxic cleaning solutions that are safe for your family, pets, and the planet.</div>
+              </div>
+            </div>
+            <div class="why-feature reveal reveal-delay-3">
+              <div class="why-feature-icon"><i class="fas fa-clock"></i></div>
+              <div>
+                <div class="why-feature-title">Always On Time</div>
+                <div class="why-feature-desc">We respect your schedule. Our 98.4% on-time record speaks for itself — punctuality is our promise.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header centered">
+        <div class="section-eyebrow reveal">What We Offer</div>
+        <h2 class="section-title reveal reveal-delay-1">Cleaning Services Tailored to You</h2>
+        <p class="section-subtitle reveal reveal-delay-2">From one-off deep cleans to regular scheduled maintenance, we have a service to match your needs and budget.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-card-img">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Home Cleaning"/>
+            <div class="service-card-img-overlay"></div>
+            <span class="service-card-tag">Popular</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Residential Cleaning</h3>
+            <p>Comprehensive home cleaning including kitchens, bathrooms, bedrooms, and living areas — leaving your home spotless.</p>
+            <a class="service-card-link" onclick="showPage('services')">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-card-img">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Commercial Cleaning"/>
+            <div class="service-card-img-overlay"></div>
+            <span class="service-card-tag">Business</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Commercial Cleaning</h3>
+            <p>Tailored office and commercial space cleaning services that maintain a professional environment for your team and clients.</p>
+            <a class="service-card-link" onclick="showPage('services')">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-card-img">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Deep Cleaning"/>
+            <div class="service-card-img-overlay"></div>
+            <span class="service-card-tag">Premium</span>
+          </div>
+          <div class="service-card-body">
+            <h3>Deep & End-of-Tenancy</h3>
+            <p>Move-in or move-out? Our deep clean service covers every corner, ensuring full bond returns and fresh starts.</p>
+            <a class="service-card-link" onclick="showPage('services')">Learn more <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section testimonials-section">
+    <div class="section-inner">
+      <div class="section-header centered">
+        <div class="section-eyebrow">Client Reviews</div>
+        <h2 class="section-title" style="color:white">What Our Clients Say</h2>
+        <p class="section-subtitle">Real words from real people across the Ruapehu region who trust us with their spaces.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal reveal-delay-1">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"Absolutely incredible service. The team arrived on time, were professional throughout, and left our home looking better than the day we moved in. We've booked monthly cleans ever since."</p>
+          <div class="t-author">
+            <div class="t-avatar"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="Sarah"/></div>
+            <div><div class="t-name">Sarah Mitchell</div><div class="t-role">Homeowner, Taumarunui</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-2">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"We use Ruapehu Cleaning for our entire office complex. They are reliable, thorough, and the staff are always friendly. Our employees have noticed the difference — highly recommended."</p>
+          <div class="t-author">
+            <div class="t-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="James"/></div>
+            <div><div class="t-name">James Tūhoe</div><div class="t-role">Operations Manager, Ōhakune</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal reveal-delay-3">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"End-of-tenancy clean was flawless. Got my full bond back without any issues. The team went above and beyond with the oven and windows. Worth every cent — will absolutely use again."</p>
+          <div class="t-author">
+            <div class="t-avatar"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="Emma"/></div>
+            <div><div class="t-name">Emma Parata</div><div class="t-role">Renter, National Park</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2>Ready for a Spotless Space?</h2>
+        <p>Get a free, no-obligation quote in under 2 minutes.</p>
+      </div>
+      <button class="btn btn-dark" onclick="showPage('contact')">
+        <i class="fas fa-arrow-right"></i> Request a Free Quote
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="nav-logo-icon" style="width:36px;height:36px;font-size:15px;"><i class="fas fa-sparkles"></i></div>
+          <div class="nav-logo-text"><span style="font-size:14px;">Ruapehu Cleaning Solutions</span><span>Est. 2012</span></div>
+        </div>
+        <p>Proudly serving the Ruapehu region with premium, eco-conscious cleaning services for homes and businesses.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-google"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a onclick="showPage('home')">Home</a></li>
+          <li><a onclick="showPage('services')">Services</a></li>
+          <li><a onclick="showPage('contact')">Contact Us</a></li>
+          <li><a onclick="showPage('contact')">Get a Quote</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a onclick="showPage('services')">Residential</a></li>
+          <li><a onclick="showPage('services')">Commercial</a></li>
+          <li><a onclick="showPage('services')">Deep Cleaning</a></li>
+          <li><a onclick="showPage('services')">End-of-Tenancy</a></li>
+          <li><a onclick="showPage('services')">Window Cleaning</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>14 Mangaohane Rd,<br>Taumarunui 3920</span></div>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>0800 RUAPEHU<br>+64 7 895 5234</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@ruapehuclean.co.nz</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Ruapehu Cleaning Solutions. All rights reserved. | <span>New Zealand owned & operated</span></p>
+      <p>Privacy Policy · Terms of Service</p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ═══════════ SERVICES PAGE ═══════════ -->
+<div class="page" id="page-services">
+
+  <section class="services-hero">
+    <div style="position:relative;z-index:1;">
+      <div class="page-hero-eyebrow">What We Do</div>
+      <h1 class="page-hero-title">Complete Cleaning Solutions</h1>
+      <p class="page-hero-sub">From a single bedroom to a full commercial complex — every service is delivered with the same uncompromising standard of excellence.</p>
+    </div>
+  </section>
+
+  <!-- FULL SERVICE GRID -->
+  <section class="services-full-section">
+    <div class="section-inner">
+      <div class="services-tabs">
+        <button class="tab-btn active" onclick="filterServices(this,'all')">All Services</button>
+        <button class="tab-btn" onclick="filterServices(this,'residential')">Residential</button>
+        <button class="tab-btn" onclick="filterServices(this,'commercial')">Commercial</button>
+        <button class="tab-btn" onclick="filterServices(this,'specialist')">Specialist</button>
+      </div>
+      <div class="services-full-grid" id="servicesGrid">
+
+        <div class="service-full-card reveal" data-category="residential">
+          <div class="sfc-img"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Home Clean"/></div>
+          <div class="sfc-body">
+            <div class="sfc-icon"><i class="fas fa-home"></i></div>
+            <h3>Regular Home Clean</h3>
+            <p>Weekly or fortnightly cleaning tailored to your schedule. We handle dusting, vacuuming, mopping, bathrooms, and kitchen surfaces.</p>
+            <ul class="sfc-features">
+              <li>All rooms dusted & vacuumed</li>
+              <li>Bathroom & kitchen sanitisation</li>
+              <li>Floor mopping & surface polish</li>
+              <li>Bin emptying & tidying</li>
+            </ul>
+            <div class="sfc-price">
+              <div class="price-tag">From $89 <small>/ visit</small></div>
+              <button class="btn-sm btn-teal" onclick="showPage('contact')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-full-card reveal reveal-delay-1" data-category="residential">
+          <div class="sfc-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Deep Clean"/></div>
+          <div class="sfc-body">
+            <div class="sfc-icon"><i class="fas fa-broom"></i></div>
+            <h3>Deep Clean</h3>
+            <p>A thorough, top-to-bottom clean for move-ins, seasonal refreshes, or long-term rental handovers. No corner left untouched.</p>
+            <ul class="sfc-features">
+              <li>Inside oven, fridge & dishwasher</li>
+              <li>Skirting boards & window tracks</li>
+              <li>Inside cupboards & wardrobes</li>
+              <li>Grout & tile scrubbing</li>
+            </ul>
+            <div class="sfc-price">
+              <div class="price-tag">From $220 <small>/ clean</small></div>
+              <button class="btn-sm btn-teal" onclick="showPage('contact')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-full-card reveal reveal-delay-2" data-category="residential">
+          <div class="sfc-img"><img src="https://images.unsplash.com/photo-1527515545081-5db817172677?w=600&q=80" alt="End of Tenancy"/></div>
+          <div class="sfc-body">
+            <div class="sfc-icon"><i class="fas fa-key"></i></div>
+            <h3>End-of-Tenancy</h3>
+            <p>Maximise your bond return with our comprehensive move-out clean, trusted by landlords and property managers across the region.</p>
+            <ul class="sfc-features">
+              <li>Bond return guarantee</li>
+              <li>Certificate of completion</li>
+              <li>Landlord checklist compliant</li>
+              <li>Same-day availability</li>
+            </ul>
+            <div class="sfc-price">
+              <div class="price-tag">From $280 <small>/ property</small></div>
+              <button class="btn-sm btn-teal" onclick="showPage('contact')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-full-card reveal" data-category="commercial">
+          <div class="sfc-img"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Office Clean"/></div>
+          <div class="sfc-body">
+            <div class="sfc-icon"><i class="fas fa-building"></i></div>
+            <h3>Office Cleaning</h3>
+            <p>Daily, weekly, or ad-hoc office cleaning that keeps your workspace professional, hygienic, and welcoming for staff and visitors.</p>
+            <ul class="sfc-features">
+              <li>Desks, screens & equipment</li>
+              <li>Kitchen & breakroom sanitation</li>
+              <li>Restroom deep clean</li>
+              <li>Reception & common areas</li>
+            </ul>
+            <div class="sfc-price">
+              <div class="price-tag">From $140 <small>/ visit</small></div>
+              <button class="btn-sm btn-teal" onclick="showPage('contact')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-full-card reveal reveal-delay-1" data-category="commercial">
+          <div class="sfc-img"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80" alt="Hospitality Clean"/></div>
+          <div class="sfc-body">
+            <div class="sfc-icon"><i class="fas fa-hotel"></i></div>
+            <h3>Hospitality & Accommodation</h3>
+            <p>Specialist room turnovers, laundry management, and deep cleaning for lodges, motels, and Airbnb properties across the Ruapehu district.</p>
+            <ul class="sfc-features">
+              <li>Rapid room turnover</li>
+              <li>Linen change & laundry</li>
+              <li>Amenity restocking</li>
+              <li>Guest-ready presentation</li>
+            </ul>
+            <div class="sfc-price">
+              <div class="price-tag">From $65 <small>/ room</small></div>
+              <button class="btn-sm btn-teal" onclick="showPage('contact')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-full-card reveal reveal-delay-2" data-category="specialist">
+          <div class="sfc-img"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80" alt="Window Cleaning"/></div>
+          <div class="sfc-body">
+            <div class="sfc-icon"><i class="fas fa-water"></i></div>
+            <h3>Window & Exterior Cleaning</h3>
+            <p>Streak-free window cleaning inside and out, plus exterior pressure washing for driveways, decks, and building facades.</p>
+            <ul class="sfc-features">
+              <li>Streak-free guarantee</li>
+              <li>High-reach equipment</li>
+              <li>Frame & sill cleaning</li>
+              <li>Pressure washing available</li>
+            </ul>
+            <div class="sfc-price">
+              <div class="price-tag">From $120 <small>/ service</small></div>
+              <button class="btn-sm btn-teal" onclick="showPage('contact')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="section-inner">
+      <div class="section-header centered">
+        <div class="section-eyebrow reveal">How It Works</div>
+        <h2 class="section-title reveal reveal-delay-1">Simple as Four Steps</h2>
+        <p class="section-subtitle reveal reveal-delay-2">Getting your space cleaned has never been easier. From quote to completion in a flash.</p>
+      </div>
+      <div class="process-steps">
+        <div class="process-step reveal reveal-delay-1">
+          <div class="step-num">1</div>
+          <h4>Request a Quote</h4>
+          <p>Fill in our quick form or call us. We'll give you a clear, transparent price within the hour — no hidden costs.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <div class="step-num">2</div>
+          <h4>Choose Your Service</h4>
+          <p>Pick the service and schedule that works for you. We work around your calendar, including weekends.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-3">
+          <div class="step-num">3</div>
+          <h4>We Show Up & Clean</h4>
+          <p>Our vetted team arrives on time with all equipment and eco-friendly products. You don't need to lift a finger.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-4">
+          <div class="step-num">4</div>
+          <h4>You Relax & Enjoy</h4>
+          <p>Walk into a spotless, fresh-smelling space. Not satisfied? We'll return and fix it free of charge. Guaranteed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2>See a Service You Need?</h2>
+        <p>Book online or call us — we're ready when you are.</p>
+      </div>
+      <button class="btn btn-dark" onclick="showPage('contact')"><i class="fas fa-phone"></i> Get in Touch</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="nav-logo-icon" style="width:36px;height:36px;font-size:15px;"><i class="fas fa-sparkles"></i></div>
+          <div class="nav-logo-text"><span style="font-size:14px;">Ruapehu Cleaning Solutions</span><span>Est. 2012</span></div>
+        </div>
+        <p>Proudly serving the Ruapehu region with premium, eco-conscious cleaning services for homes and businesses.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-google"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('services')">Services</a></li>
+        <li><a onclick="showPage('contact')">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a>Residential</a></li><li><a>Commercial</a></li>
+        <li><a>Deep Clean</a></li><li><a>End-of-Tenancy</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>0800 RUAPEHU</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@ruapehuclean.co.nz</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2024 Ruapehu Cleaning Solutions. All rights reserved.</p></div>
+  </footer>
+</div>
+
+<!-- ═══════════ CONTACT PAGE ═══════════ -->
+<div class="page" id="page-contact">
+
+  <section class="contact-hero">
+    <div style="position:relative;z-index:1;">
+      <div class="page-hero-eyebrow">Get in Touch</div>
+      <h1 class="page-hero-title">Let's Make Your Space Shine</h1>
+      <p class="page-hero-sub">Request a free quote, ask a question, or book a service. We respond to every enquiry within 2 hours.</p>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="contact-inner">
+
+      <!-- Info Card -->
+      <div class="contact-info-card reveal">
+        <h3>Contact Information</h3>
+        <p>We're based in the heart of the Ruapehu region and proud to serve the entire district.</p>
+        <div class="contact-detail">
+          <div class="cd-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div><div class="cd-label">Address</div><div class="cd-value">14 Mangaohane Rd, Taumarunui 3920, NZ</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon"><i class="fas fa-phone"></i></div>
+          <div><div class="cd-label">Phone</div><div class="cd-value">0800 RUAPEHU · +64 7 895 5234</div></div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon"><i class="fas fa-envelope"></i></div>
+          <div><div class="cd-label">Email</div><div class="cd-value">hello@ruapehuclean.co.nz</div></div>
+        </div>
+        <div class="contact-info-divider"></div>
+        <div class="contact-hours">
+          <h4>Opening Hours</h4>
+          <div class="hours-row"><span>Monday – Friday</span><span>7:00am – 6:00pm</span></div>
+          <div class="hours-row"><span>Saturday</span><span>8:00am – 4:00pm</span></div>
+          <div class="hours-row"><span>Sunday</span><span>By Appointment</span></div>
+          <div class="hours-row"><span>Public Holidays</span><span>Limited Availability</span></div>
+        </div>
+        <div class="contact-info-divider"></div>
+        <div style="display:flex;gap:10px;">
+          <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-google"></i></a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form-wrap reveal reveal-delay-1">
+        <div id="contactForm">
+          <h3>Request a Free Quote</h3>
+          <p>Fill in the details below and we'll get back to you with a personalised quote — usually within 2 hours.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name *</label>
+              <input type="text" placeholder="e.g. Sarah"/>
+            </div>
+            <div class="form-group">
+              <label>Last Name *</label>
+              <input type="text" placeholder="e.g. Mitchell"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" placeholder="sarah@example.com"/>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+64 21 000 0000"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Service Needed *</label>
+            <select>
+              <option value="" disabled selected>Select a service...</option>
+              <option>Regular Home Clean</option>
+              <option>Deep Clean</option>
+              <option>End-of-Tenancy Clean</option>
+              <option>Office / Commercial Cleaning</option>
+              <option>Hospitality & Accommodation</option>
+              <option>Window & Exterior Cleaning</option>
+              <option>Other / Not Sure</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Property Type</label>
+              <select>
+                <option value="" disabled selected>Select type...</option>
+                <option>House</option>
+                <option>Apartment / Unit</option>
+                <option>Office</option>
+                <option>Retail / Commercial</option>
+                <option>Motel / Accommodation</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Date</label>
+              <input type="date"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tell Us More</label>
+            <textarea placeholder="Any specific requirements, access instructions, or questions? Let us know…"></textarea>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="agree"/>
+            <label for="agree">I agree to Ruapehu Cleaning Solutions' <a href="#">Privacy Policy</a> and consent to being contacted about my enquiry.</label>
+          </div>
+          <button class="btn btn-primary" onclick="submitForm()" style="width:100%;justify-content:center;">
+            <i class="fas fa-paper-plane"></i> Send My Request
+          </button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon"><i class="fas fa-check"></i></div>
+          <h3>Request Sent!</h3>
+          <p>Thanks for reaching out. A member of our team will be in touch within 2 hours with your personalised quote.</p>
+          <br>
+          <button class="btn btn-primary" onclick="resetForm()" style="margin:0 auto;">Send Another Request</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MAP -->
+  <section class="map-section">
+    <div class="map-inner">
+      <div class="section-header">
+        <div class="section-eyebrow reveal">Find Us</div>
+        <h2 class="section-title reveal reveal-delay-1">Serving the Ruapehu Region</h2>
+        <p class="section-subtitle reveal reveal-delay-2">Based in Taumarunui, we cover Ōhakune, National Park, Waiouru, Raetihi and surrounding areas.</p>
+      </div>
+      <div class="map-placeholder reveal">
+        <img src="https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1400&q=80" alt="Ruapehu Region"/>
+        <div class="map-overlay">
+          <div class="map-pin">
+            <i class="fas fa-map-marker-alt"></i>
+            <div><strong>Ruapehu Cleaning Solutions</strong><span>14 Mangaohane Rd, Taumarunui</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div class="nav-logo-icon" style="width:36px;height:36px;font-size:15px;"><i class="fas fa-sparkles"></i></div>
+          <div class="nav-logo-text"><span style="font-size:14px;">Ruapehu Cleaning Solutions</span><span>Est. 2012</span></div>
+        </div>
+        <p>Proudly serving the Ruapehu region with premium, eco-conscious cleaning services for homes and businesses.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-google"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a onclick="showPage('home')">Home</a></li>
+        <li><a onclick="showPage('services')">Services</a></li>
+        <li><a onclick="showPage('contact')">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Services</h4><ul>
+        <li><a>Residential</a></li><li><a>Commercial</a></li>
+        <li><a>Deep Clean</a></li><li><a>End-of-Tenancy</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4>
+        <div class="footer-contact-item"><i class="fas fa-phone"></i><span>0800 RUAPEHU</span></div>
+        <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@ruapehuclean.co.nz</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2024 Ruapehu Cleaning Solutions. All rights reserved.</p></div>
+  </footer>
+</div>
+
+<!-- ═══════════ JS ═══════════ -->
+<script>
+  /* ── PAGE NAVIGATION ── */
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.getElementById('nav-' + page).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    initReveal();
+  }
+
+  /* ── STICKY NAV ── */
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  /* ── SPARKLE PARTICLES ── */
+  function createSparkles() {
+    const container = document.getElementById('sparkleContainer');
+    if (!container) return;
+    for (let i = 0; i < 28; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDuration = (3 + Math.random() * 6) + 's';
+      s.style.animationDelay = (Math.random() * 8) + 's';
+      s.style.width = s.style.height = (2 + Math.random() * 5) + 'px';
+      s.style.background = Math.random() > 0.5 ? '#00C9A7' : '#F5C842';
+      container.appendChild(s);
+    }
+  }
+  createSparkles();
+
+  /* ── SCROLL REVEAL ── */
+  function initReveal() {
+    const revealEls = document.querySelectorAll('.page.active .reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  }
+  window.addEventListener('load', initReveal);
+
+  /* ── SERVICE FILTER TABS ── */
+  function filterServices(btn, category) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.service-full-card').forEach(card => {
+      const match = category === 'all' || card.dataset.category === category;
+      card.style.display = match ? 'block' : 'none';
+      if (match) { card.style.animation = 'fadeInPage 0.4s ease'; }
+    });
+  }
+
+  /* ── FORM SUBMIT ── */
+  function submitForm() {
+    const form = document.getElementById('contactForm');
+    const success = document.getElementById('formSuccess');
+    form.style.display = 'none';
+    success.classList.add('show');
+  }
+  function resetForm() {
+    document.getElementById('contactForm').style.display = 'block';
+    document.getElementById('formSuccess').classList.remove('show');
+  }
+
+  /* ── HERO PARALLAX ── */
+  document.addEventListener('mousemove', (e) => {
+    const glow = document.querySelector('.hero-glow');
+    if (!glow) return;
+    const x = (e.clientX / window.innerWidth - 0.5) * 30;
+    const y = (e.clientY / window.innerHeight - 0.5) * 30;
+    glow.style.transform = `translate(${x}px, ${y}px)`;
+  });
+</script>
+</body>
+</html>
